@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gradleexample.demo.mapper.EmployeeMapper">
+    <resultMap id="selectAllEmployeesMap" type="com.gradleexample.demo.entity.Employees">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="workno" column="workno"/>
+    </resultMap>
+    <select id="selectAllEmployees" resultMap="selectAllEmployeesMap">
+        select id,name,sex,workno from employee
+    </select>
+
+    <select id="selectEmployeeById" resultType="com.gradleexample.demo.entity.Employees">
+        select name from employee where id = #{id}
+    </select>
+
+    <insert id="insertEmployee">
+        insert into employee(name,sex,workno) values (#{name},#{sex},#{workno})
+    </insert>
+
+    <update id="updateEmployee">
+        update employee
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="workno!=null">workno=#{workno},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmployee">
+        delete from employee where id=#{id}
+    </delete>
+</mapper>
