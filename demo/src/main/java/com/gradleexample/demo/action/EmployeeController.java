@@ -3,12 +3,8 @@ package com.gradleexample.demo.action;
 import com.gradleexample.demo.entity.Employees;
 import com.gradleexample.demo.service.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
 
 /**
  * @author wzy
@@ -24,8 +20,8 @@ public class EmployeeController {
         return employeesService.getEmployeesInf();
     }
 
-    @RequestMapping("/emp")
-    public Employees getEmployeeInfoById(int id) {
+    @PostMapping("/emp")
+    public Employees getEmployeeInfoById(@RequestParam int id) {
         return employeesService.getEmployeeById(id);
     }
 
@@ -48,7 +44,7 @@ public class EmployeeController {
      * @return
      */
     @RequestMapping("/updateEmp")
-    public int toUpdateEmployeeInfo(Employees employees) {
+    public int toUpdateEmployeeInfo(@RequestBody Employees employees) {
         return employeesService.updateEmployeeInfo(employees);
     }
 
@@ -59,7 +55,7 @@ public class EmployeeController {
      * @return
      */
     @RequestMapping()
-    public int toDeleteEmployeeInfo(int id) {
+    public int toDeleteEmployeeInfo(@RequestParam int id) {
         return employeesService.deleteEmployeeById(id);
     }
 }
